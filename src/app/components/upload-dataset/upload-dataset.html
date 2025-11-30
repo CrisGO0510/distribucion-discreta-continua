@@ -1,0 +1,25 @@
+<h2>Cargar Dataset</h2>
+
+<input type="file" (change)="onFileSelected($event)" accept=".csv" />
+
+<input
+  type="text"
+  placeholder="Nombre"
+  [value]="name()"
+  (input)="name.set($any($event.target).value)"
+/>
+
+<input
+  type="text"
+  placeholder="Fuente"
+  [value]="source()"
+  (input)="source.set($any($event.target).value)"
+/>
+
+<textarea
+  placeholder="Descripción"
+  [value]="description()"
+  (input)="description.set($any($event.target).value)"
+></textarea>
+
+<button (click)="upload()">Cargar</button>
