@@ -1,25 +1,34 @@
-<h2>Cargar Dataset</h2>
+<div class="container">
+  <div class="card">
+    <h2>📂 Seleccionar Dataset Precargado</h2>
+    <p>Elige una base de datos para comenzar el análisis:</p>
 
-<input type="file" (change)="onFileSelected($event)" accept=".csv" />
+    <div class="dataset-grid">
+      <div
+        class="dataset-option"
+        *ngFor="let option of datasetService.availableDatasets"
+        (click)="selectPreset(option)"
+        [class.active]="datasetService.fileName() === option.name"
+      >
+        <h3>{{ option.name }}</h3>
+        <p>{{ option.description }}</p>
+        <button>Cargar</button>
+      </div>
+    </div>
+  </div>
 
-<input
-  type="text"
-  placeholder="Nombre"
-  [value]="name()"
-  (input)="name.set($any($event.target).value)"
-/>
+  <div class="card" style="margin-top: 2rem">
+    <h2>📤 O subir tu propio archivo</h2>
+    <input type="file" accept=".csv" (change)="onFileSelected($event)" />
+  </div>
 
-<input
-  type="text"
-  placeholder="Fuente"
-  [value]="source()"
-  (input)="source.set($any($event.target).value)"
-/>
-
-<textarea
-  placeholder="Descripción"
-  [value]="description()"
-  (input)="description.set($any($event.target).value)"
-></textarea>
-
-<button (click)="upload()">Cargar</button>
+  <div
+    class="card"
+    *ngIf="datasetService.data().length > 0"
+    style="border-left: 5px solid #10b981"
+  >
+    <h3>✅ Dataset Cargado: {{ datasetService.fileName() }}</h3>
+    <p>Registros encontrados: {{ datasetService.data().length }}</p>
+    <p>Columnas detectadas: {{ datasetService.headers().join(", ") }}</p>
+  </div>
+</div>

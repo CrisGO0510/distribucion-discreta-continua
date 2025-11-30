@@ -1,0 +1,16 @@
+.transform-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  canvas {
+    margin-top: 2rem;
+  }
+
+  h3 {
+    margin: 1.5rem 0 0.5rem;
+  }
+}

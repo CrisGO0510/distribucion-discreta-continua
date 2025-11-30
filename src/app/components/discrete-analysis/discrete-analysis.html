@@ -1,1 +1,50 @@
-<p>discrete-analysis works!</p>
+<div class="container" *ngIf="variableData().length > 0">
+  <div class="card">
+    <h2>4. Análisis Variable Discreta: {{ variableName() }}</h2>
+
+    <div class="grid-2">
+      <!-- Tabla de Frecuencias -->
+      <div>
+        <h3>Tabla de Frecuencias</h3>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Categoría</th>
+              <th>Frecuencia Absoluta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of frequencyTable()">
+              <td>{{ row.label }}</td>
+              <td>{{ row.count }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Gráfico de Barras -->
+      <div>
+        <h3>Gráfico de Barras</h3>
+        <div style="height: 300px">
+          <canvas
+            baseChart
+            [data]="chartData()"
+            [options]="chartOptions"
+            [type]="'bar'"
+          >
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conclusión Empírica -->
+    <div class="mt-4" style="margin-top: 1rem">
+      <strong>Análisis de Distribución:</strong>
+      <p>
+        Observando el gráfico de barras, se puede notar qué categoría predomina.
+        Si las barras son similares, es una distribución uniforme. Si una
+        destaca mucho, es la moda ({{ frequencyTable()[0]?.label }}).
+      </p>
+    </div>
+  </div>
+</div>

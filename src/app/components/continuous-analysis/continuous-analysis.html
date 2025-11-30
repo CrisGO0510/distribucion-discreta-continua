@@ -1,1 +1,54 @@
-<p>continuous-analysis works!</p>
+<div class="container" *ngIf="variableData().length > 0; else noData">
+  <div class="card">
+    <h2>Análisis Descriptivo: {{ selectedVarName() }}</h2>
+    <div class="grid-4">
+      <div class="stat-box">
+        <span class="label">Media</span>
+        <!-- CORREGIDO: stats().mean -->
+        <span class="value">{{ stats().mean | number: "1.2-2" }}</span>
+      </div>
+      <div class="stat-box">
+        <span class="label">Mediana</span>
+        <span class="value">{{ stats().median | number: "1.2-2" }}</span>
+      </div>
+      <div class="stat-box">
+        <span class="label">Moda</span>
+        <span class="value">{{ stats().mode.join(", ") || "N/A" }}</span>
+      </div>
+      <div class="stat-box">
+        <span class="label">Desv. Estándar</span>
+        <span class="value">{{ stats().stdDev | number: "1.2-2" }}</span>
+      </div>
+    </div>
+
+    <div
+      class="mt-4 p-3 bg-blue-50"
+      style="margin-top: 1rem; padding: 1rem; background: #eff6ff"
+    >
+      <strong>Conclusión:</strong>
+      La media ({{ stats().mean | number: "1.1-1" }}) y mediana ({{
+        stats().median | number: "1.1-1"
+      }})
+      <span *ngIf="isNormalApprox()"> son similares (Normal aprox).</span>
+      <span *ngIf="!isNormalApprox()"> difieren (No es normal).</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Histograma</h2>
+    <div style="height: 400px">
+      <!-- CORREGIDO: chartData() -->
+      <canvas
+        baseChart
+        [data]="chartData()"
+        [options]="chartOptions"
+        [type]="'bar'"
+      >
+      </canvas>
+    </div>
+  </div>
+</div>
+
+<ng-template #noData>
+  <div class="card"><p>Selecciona una variable continua.</p></div>
+</ng-template>

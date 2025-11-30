@@ -1,0 +1,23 @@
+.report-wrapper {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-bottom: 0.7rem;
+    line-height: 1.5rem;
+  }
+
+  .section {
+    margin-bottom: 2rem;
+  }
+}

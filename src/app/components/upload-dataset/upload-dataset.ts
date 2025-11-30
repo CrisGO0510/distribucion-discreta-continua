@@ -1,42 +1,25 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { DatasetOption, DatasetService } from '../../services/dataset';
 import { CommonModule } from '@angular/common';
-import { DatasetService } from '../../services/dataset';
 
 @Component({
   selector: 'app-upload-dataset',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './upload-dataset.html',
-  styleUrls: ['./upload-dataset.scss'],
+  styleUrl: './upload-dataset.scss',
 })
 export class UploadDataset {
-  file = signal<File | null>(null);
-  name = signal('');
-  source = signal('');
-  description = signal('');
+  public datasetService = inject(DatasetService);
 
-  constructor(private datasetService: DatasetService) {}
-
-  onFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.file.set(input.files[0]);
-    }
+  selectPreset(option: DatasetOption) {
+    this.datasetService.loadPresetDataset(option.path, option.name);
   }
 
-  async upload() {
-    if (!this.file()) {
-      alert('Debe seleccionar un archivo.');
-      return;
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.datasetService.loadLocalFile(file);
     }
-
-    await this.datasetService.loadCSV(
-      this.file()!,
-      this.name(),
-      this.source(),
-      this.description(),
-    );
-
-    alert('Dataset cargado correctamente');
   }
 }

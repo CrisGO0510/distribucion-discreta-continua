@@ -1,0 +1,23 @@
+.continuous-container {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  .stats-block {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+
+    p {
+      margin: 0;
+      padding: 0.5rem;
+    }
+  }
+
+  canvas {
+    margin-top: 2rem;
+  }
+}

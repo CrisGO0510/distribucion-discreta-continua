@@ -1,1 +1,38 @@
-<p>transformations works!</p>
+<div class="container">
+  <div class="card">
+    <h2>Transformaciones</h2>
+    <div class="grid-2">
+      <button (click)="applyLog()">Aplicar Log (Log)</button>
+      <button (click)="applySqrt()">Aplicar Raíz (Sqrt)</button>
+      <button (click)="reset()">Restaurar</button>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Original</h3>
+      <div style="height: 300px">
+        <!-- Llamar signal con () -->
+        <canvas
+          baseChart
+          [data]="originalChartData()"
+          [type]="'bar'"
+          [options]="options"
+        ></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <!-- Llamar signal con () -->
+      <h3>Transformada: {{ currentTransform() }}</h3>
+      <div style="height: 300px">
+        <canvas
+          baseChart
+          [data]="transformedChartData()"
+          [type]="'bar'"
+          [options]="options"
+        ></canvas>
+      </div>
+    </div>
+  </div>
+</div>

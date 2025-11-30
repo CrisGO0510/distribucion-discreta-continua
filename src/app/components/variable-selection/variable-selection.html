@@ -1,1 +1,26 @@
-<p>variable-selection works!</p>
+<div class="container" *ngIf="datasetService.data().length > 0">
+  <div class="card">
+    <h2>3. Variables a Analizar</h2>
+    <div class="grid-2">
+      <div>
+        <label>Variable Continua (Números: Promedio, Notas, Edad)</label>
+        <select [(ngModel)]="selectedCont" (change)="onSelectionChange()">
+          <option value="" disabled>Seleccione...</option>
+          <option *ngFor="let col of datasetService.headers()" [value]="col">
+            {{ col }}
+          </option>
+        </select>
+      </div>
+
+      <div>
+        <label>Variable Discreta (Categorías: Genero, Ciudad)</label>
+        <select [(ngModel)]="selectedDisc" (change)="onSelectionChange()">
+          <option value="" disabled>Seleccione...</option>
+          <option *ngFor="let col of datasetService.headers()" [value]="col">
+            {{ col }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>

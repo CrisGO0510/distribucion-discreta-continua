@@ -1,0 +1,23 @@
+.analysis-container {
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+
+    th,
+    td {
+      padding: 0.6rem;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      background: #efefef;
+    }
+  }
+
+  canvas {
+    margin-top: 1rem;
+  }
+}
