@@ -3,20 +3,19 @@
     <h2>Análisis Descriptivo: {{ selectedVarName() }}</h2>
     <div class="grid-4">
       <div class="stat-box">
-        <span class="label">Media</span>
-        <!-- CORREGIDO: stats().mean -->
+        <span class="label">Media </span>
         <span class="value">{{ stats().mean | number: "1.2-2" }}</span>
       </div>
       <div class="stat-box">
-        <span class="label">Mediana</span>
+        <span class="label">Mediana </span>
         <span class="value">{{ stats().median | number: "1.2-2" }}</span>
       </div>
       <div class="stat-box">
-        <span class="label">Moda</span>
+        <span class="label">Moda </span>
         <span class="value">{{ stats().mode.join(", ") || "N/A" }}</span>
       </div>
       <div class="stat-box">
-        <span class="label">Desv. Estándar</span>
+        <span class="label">Desv. Estándar </span>
         <span class="value">{{ stats().stdDev | number: "1.2-2" }}</span>
       </div>
     </div>

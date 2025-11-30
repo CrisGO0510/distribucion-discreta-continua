@@ -1,1 +1,84 @@
-<p>z-transform works!</p>
+<div class="container" *ngIf="data().length > 0; else noData">
+  <mat-card class="mb-4">
+    <mat-card-header>
+      <mat-icon mat-card-avatar color="primary">functions</mat-icon>
+      <mat-card-title>Tipificación Z (Estandarización)</mat-card-title>
+      <mat-card-subtitle>Variable: {{ variableName() }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        La puntuación Z indica a cuántas desviaciones estándar se encuentra un
+        valor respecto a la media.
+      </p>
+
+      <div class="stats-summary">
+        <div class="stat-item">
+          <span class="label">Media (μ)</span>
+          <span class="val">{{ baseStats().mean | number: "1.2-2" }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="label">Desviación (σ)</span>
+          <span class="val">{{ baseStats().stdDev | number: "1.2-2" }}</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-content>
+      <h3>Elegir dos valores para calcular Z</h3>
+      <p class="formula">Fórmula: <code>Z = (x - μ) / σ</code></p>
+      <br />
+
+      <div class="calc-grid">
+        <div class="calc-box">
+          <h4>Valor 1</h4>
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Ingresa un valor (x)</mat-label>
+            <input
+              matInput
+              type="number"
+              [ngModel]="value1()"
+              (ngModelChange)="value1.set($event)"
+            />
+          </mat-form-field>
+
+          <div class="result-box" *ngIf="result1() !== null">
+            <span class="z-score">Z = {{ result1() | number: "1.4-4" }}</span>
+            <p class="interpretation">{{ getInterpretation(result1()!) }}</p>
+          </div>
+        </div>
+
+        <mat-divider [vertical]="true" class="divider-vertical"></mat-divider>
+
+        <div class="calc-box">
+          <h4>Valor 2</h4>
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Ingresa un valor (x)</mat-label>
+            <input
+              matInput
+              type="number"
+              [ngModel]="value2()"
+              (ngModelChange)="value2.set($event)"
+            />
+          </mat-form-field>
+
+          <div class="result-box" *ngIf="result2() !== null">
+            <span class="z-score">Z = {{ result2() | number: "1.4-4" }}</span>
+            <p class="interpretation">{{ getInterpretation(result2()!) }}</p>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<ng-template #noData>
+  <mat-card>
+    <mat-card-content>
+      <p>
+        ⚠️ Primero debes cargar un Dataset y seleccionar una variable continua.
+      </p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
