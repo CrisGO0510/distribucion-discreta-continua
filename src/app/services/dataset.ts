@@ -16,14 +16,16 @@ export class DatasetService {
 
   readonly availableDatasets: DatasetOption[] = [
     {
-      name: 'Rendimiento Estudiantil',
-      path: 'datasets/estudiantes.csv',
-      description: 'Datos de notas y estudio.',
+      name: 'Baloto Colombia',
+      path: 'datasets/baloto.csv',
+      description:
+        'Histórico de sorteos. Ideal para analizar variables discretas (números de balotas).',
     },
     {
-      name: 'Ventas Trimestrales',
-      path: 'datasets/ventas.csv',
-      description: 'Registro de ventas y satisfacción.',
+      name: 'Finca Raíz',
+      path: 'datasets/housing_fincaraiz.csv',
+      description:
+        'Precios y características de vivienda. Ideal para variable continua y transformaciones logarítmicas.',
     },
   ];
 
@@ -73,7 +75,6 @@ export class DatasetService {
   selectedContinuousColumnData = computed<number[]>(() => {
     const colName = this.selectedContinuousColumn();
     const allData = this.data();
-
     if (!colName || allData.length === 0) return [];
 
     return allData
@@ -84,7 +85,6 @@ export class DatasetService {
   selectedDiscreteColumnData = computed<any[]>(() => {
     const colName = this.selectedDiscreteColumn();
     const allData = this.data();
-
     if (!colName || allData.length === 0) return [];
 
     return allData.map((row) => row[colName]);
