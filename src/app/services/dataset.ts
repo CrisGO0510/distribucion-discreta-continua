@@ -22,10 +22,10 @@ export class DatasetService {
         'Histórico de sorteos. Ideal para analizar variables discretas (números de balotas).',
     },
     {
-      name: 'Finca Raíz',
-      path: 'datasets/housing_fincaraiz.csv',
+      name: 'Heights and Weights Dataset',
+      path: 'datasets/SOCR-HeightWeight.csv',
       description:
-        'Precios y características de vivienda. Ideal para variable continua y transformaciones logarítmicas.',
+        'Conjunto de datos que contiene alturas y pesos de individuos. Ideal para análisis de variables continuas.',
     },
   ];
 
