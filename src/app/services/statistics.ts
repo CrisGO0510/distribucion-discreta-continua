@@ -41,6 +41,7 @@ export class StatisticsService {
 
   getFrequencies(data: any[]): { label: string; count: number }[] {
     const counts: Record<string, number> = {};
+
     data.forEach((x) => {
       counts[x] = (counts[x] || 0) + 1;
     });
@@ -50,14 +51,25 @@ export class StatisticsService {
         label: key,
         count: counts[key],
       }))
-      .sort((a, b) => b.count - a.count);
-  }
 
+      .sort((a, b) => {
+        const numA = parseFloat(a.label);
+        const numB = parseFloat(b.label);
+
+        if (!isNaN(numA) && !isNaN(numB)) {
+          return numA - numB;
+        }
+
+        return a.label.localeCompare(b.label);
+      });
+  }
   calculateZScore(x: number, mean: number, stdDev: number): number {
     return (x - mean) / stdDev;
   }
 
   createHistogramData(data: number[], binCount: number = 10) {
+    if (!data || data.length === 0) return { labels: [], data: [] };
+
     const min = Math.min(...data);
     const max = Math.max(...data);
     const range = max - min;
@@ -69,7 +81,8 @@ export class StatisticsService {
     for (let i = 0; i < binCount; i++) {
       const start = min + i * binSize;
       const end = start + binSize;
-      labels.push(`${start.toFixed(1)} - ${end.toFixed(1)}`);
+
+      labels.push(`${this.formatNumber(start)} - ${this.formatNumber(end)}`);
     }
 
     data.forEach((num) => {
@@ -79,5 +92,23 @@ export class StatisticsService {
     });
 
     return { labels, data: bins };
+  }
+
+  private formatNumber(num: number): string {
+    if (num === 0) return '0';
+
+    if (Math.abs(num) >= 1.0e9) {
+      return (num / 1.0e9).toFixed(1) + 'B';
+    }
+
+    if (Math.abs(num) >= 1.0e6) {
+      return (num / 1.0e6).toFixed(1) + 'M';
+    }
+
+    if (Math.abs(num) >= 1.0e3) {
+      return (num / 1.0e3).toFixed(0) + 'K';
+    }
+
+    return num.toFixed(0);
   }
 }
